@@ -1048,6 +1048,7 @@ PLAYGROUND.Application.prototype = {
     smoothing: 1,
     paths: {
       base: "",
+      fonts: "fonts/",
       images: "images/"
     },
     offsetX: 0,
@@ -2955,10 +2956,12 @@ PLAYGROUND.Application.prototype.loadFont = function(name) {
   };
 
   var sources = "";
+ 
 
   for (var ext in formats) {
     var type = formats[ext];
-    sources += " url(\"fonts/" + name + "." + ext + "\") format('" + type + "');"
+    var entry = this.getAssetEntry(name, "fonts", type);
+    sources += " url(entry.path) format('" + type + "');"
   }
 
   styleNode.textContent = "@font-face { font-family: '" + name + "'; src: " + sources + " }";
